@@ -1,0 +1,4 @@
+package com.ayd2.mimuebleria.dto;
+
+public record CredentialsDto(String username, String password) {
+}
