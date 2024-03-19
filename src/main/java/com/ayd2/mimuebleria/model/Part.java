@@ -26,4 +26,7 @@ public class Part {
     @Column
     private int minimoExitencias;
 
+    @Column
+    private boolean estado;
+
 }

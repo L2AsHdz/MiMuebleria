@@ -34,6 +34,11 @@ public class PartController {
         partService.deletePart(partId);
         return ResponseEntity.accepted().build();
     }
+    @GetMapping("/findByName/{partName}")
+    public ResponseEntity<ResponsePartDTO> findByName(@PathVariable String partName) throws ServiceException{
+        ResponsePartDTO responseDto = partService.findByName(partName);
+        return ResponseEntity.ok().body(responseDto);
+    }
 
     @PutMapping("/{partId}")
     public ResponseEntity<ResponsePartDTO> updatePart(@PathVariable Long partId, @RequestBody RequestPartUpdateDTO partUpdate) throws ServiceException{

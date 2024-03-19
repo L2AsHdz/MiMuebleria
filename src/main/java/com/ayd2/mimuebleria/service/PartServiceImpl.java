@@ -10,7 +10,9 @@ import com.ayd2.mimuebleria.model.Part;
 import com.ayd2.mimuebleria.repository.PartRepository;
 import com.sun.jdi.request.DuplicateRequestException;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 import java.util.Optional;
@@ -33,6 +35,7 @@ public class PartServiceImpl implements PartService{
         newEntity.setPrecioUnidad(newPart.getPrecioUnidad());
         newEntity.setExistencias(newPart.getExistencias());
         newEntity.setMinimoExitencias(newPart.getMinimoExistencias());
+        newEntity.setEstado(newPart.isEstado());
 
         newEntity = partRepository.save(newEntity);
 
@@ -66,10 +69,16 @@ public class PartServiceImpl implements PartService{
          partToUpdate.setPrecioUnidad(partUpdate.getPrecioUnidad());
          partToUpdate.setExistencias(partUpdate.getExistencias());
          partToUpdate.setMinimoExitencias(partUpdate.getMinimoExistencias());
+         partToUpdate.setEstado(partUpdate.isEstado());
 
          partRepository.save(partToUpdate);
 
          return new ResponsePartDTO(partToUpdate);
     }
-
+    @Override
+    public ResponsePartDTO findByName(String name) throws ServiceException{
+        Part findPart = partRepository.findByNombre(name).orElseThrow(
+                ()-> new NotFoundException(String.format("This part with name: %s dont exists!",name)));
+        return new ResponsePartDTO(findPart);
+    }
 }

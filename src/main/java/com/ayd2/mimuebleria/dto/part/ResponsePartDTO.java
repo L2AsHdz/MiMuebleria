@@ -10,6 +10,7 @@ public class ResponsePartDTO {
     private double precioUnidad;
     private int existencias;
     private int minimoExistencias;
+    private boolean estado;
 
     public ResponsePartDTO(Part partEntity){
         this.idPieza = partEntity.getIdPieza();
@@ -17,5 +18,6 @@ public class ResponsePartDTO {
         this.precioUnidad = partEntity.getPrecioUnidad();
         this.existencias = partEntity.getExistencias();
         this.minimoExistencias = partEntity.getMinimoExitencias();
+        this.estado = partEntity.isEstado();
     }
 }

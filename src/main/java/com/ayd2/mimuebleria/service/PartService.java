@@ -13,4 +13,5 @@ public interface PartService {
 
     void deletePart(Long id) throws ServiceException;
     ResponsePartDTO updatePart(Long id, RequestPartUpdateDTO partUpdate) throws ServiceException;
+    ResponsePartDTO findByName(String id) throws ServiceException;
 }

@@ -8,4 +8,5 @@ public class RequestPartDTO {
     private double precioUnidad;
     private int existencias;
     private int minimoExistencias;
+    private boolean estado;
 }
