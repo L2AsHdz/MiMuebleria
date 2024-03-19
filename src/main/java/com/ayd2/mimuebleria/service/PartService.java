@@ -11,6 +11,6 @@ public interface PartService {
     ResponsePartDTO createPart(RequestPartDTO newPart) throws ServiceException;
     List<ResponsePartDTO> findAll();
 
-    void deletePart(Long id);
-    ResponsePartDTO updatePart(Long id, RequestPartUpdateDTO partUpdate);
+    void deletePart(Long id) throws ServiceException;
+    ResponsePartDTO updatePart(Long id, RequestPartUpdateDTO partUpdate) throws ServiceException;
 }
