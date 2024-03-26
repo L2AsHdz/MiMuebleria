@@ -10,10 +10,10 @@ import java.util.List;
 import java.util.Optional;
 @Repository
 public interface PartRepository extends CrudRepository<Part,Long> {
-    Optional<Part> findByNombre(String name);
+    Optional<Part> findByName(String name);
     @Override
     List<Part> findAll();
 
-    @Query("select p from Part p where p.nombre = :name and p.idPieza <> :id")
+    @Query("select p from Part p where p.name = :name and p.pieceId <> :id")
     Optional<Part> findFirstByNombreAndNotId(@Param("id") Long id, @Param("name") String name);
 }

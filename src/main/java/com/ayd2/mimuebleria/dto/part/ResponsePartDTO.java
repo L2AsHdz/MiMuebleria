@@ -5,19 +5,17 @@ import lombok.Value;
 
 @Value
 public class ResponsePartDTO {
-    private Long idPieza;
-    private String nombre;
-    private double precioUnidad;
-    private int existencias;
-    private int minimoExistencias;
-    private boolean estado;
+    private Long pieceId;
+    private String name;
+    private double unitPrice;
+    private int miniumStock;
+    private boolean state;
 
     public ResponsePartDTO(Part partEntity){
-        this.idPieza = partEntity.getIdPieza();
-        this.nombre = partEntity.getNombre();
-        this.precioUnidad = partEntity.getPrecioUnidad();
-        this.existencias = partEntity.getExistencias();
-        this.minimoExistencias = partEntity.getMinimoExitencias();
-        this.estado = partEntity.isEstado();
+        this.pieceId = partEntity.getPieceId();
+        this.name = partEntity.getName();
+        this.unitPrice = partEntity.getUnitPrice();
+        this.miniumStock = partEntity.getMinimumStock();
+        this.state = partEntity.isState();
     }
 }

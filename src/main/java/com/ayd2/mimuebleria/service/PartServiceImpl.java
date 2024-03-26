@@ -8,11 +8,8 @@ import com.ayd2.mimuebleria.exceptions.NotFoundException;
 import com.ayd2.mimuebleria.exceptions.ServiceException;
 import com.ayd2.mimuebleria.model.Part;
 import com.ayd2.mimuebleria.repository.PartRepository;
-import com.sun.jdi.request.DuplicateRequestException;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 import java.util.Optional;
@@ -26,16 +23,15 @@ public class PartServiceImpl implements PartService{
     }
     @Override
     public ResponsePartDTO createPart(@RequestBody RequestPartDTO newPart) throws ServiceException {
-        Optional <Part> newPartEntity = partRepository.findByNombre(newPart.getNombre());
+        Optional <Part> newPartEntity = partRepository.findByName(newPart.getName());
         if(newPartEntity.isPresent()){
-            throw new DuplicatedEntityExeption(String.format("This part with name: %s is alredy exists!",newPart.getNombre()));
+            throw new DuplicatedEntityExeption(String.format("This part with name: %s is alredy exists!",newPart.getName()));
         }
         Part newEntity = new Part();
-        newEntity.setNombre(newPart.getNombre());
-        newEntity.setPrecioUnidad(newPart.getPrecioUnidad());
-        newEntity.setExistencias(newPart.getExistencias());
-        newEntity.setMinimoExitencias(newPart.getMinimoExistencias());
-        newEntity.setEstado(newPart.isEstado());
+        newEntity.setName(newPart.getName());
+        newEntity.setUnitPrice(newPart.getUnitPrice());
+        newEntity.setMinimumStock(newPart.getMiniumStock());
+        newEntity.setState(newPart.isState());
 
         newEntity = partRepository.save(newEntity);
 
@@ -60,24 +56,22 @@ public class PartServiceImpl implements PartService{
     public ResponsePartDTO updatePart(Long id, RequestPartUpdateDTO partUpdate) throws ServiceException{
         Part partToUpdate = partRepository.findById(id).orElseThrow(()->
                 new NotFoundException(String.format("Part with id: %s, don't exists",id)));
-         Optional<Part> duplicatedPart = partRepository.findFirstByNombreAndNotId(id,partUpdate.getNombre());
+         Optional<Part> duplicatedPart = partRepository.findFirstByNombreAndNotId(id,partUpdate.getName());
 
          if(duplicatedPart.isPresent()){
-             throw new DuplicatedEntityExeption(String.format("Part with name: %s, is already exists",partToUpdate.getNombre()));
+             throw new DuplicatedEntityExeption(String.format("Part with name: %s, is already exists",partToUpdate.getName()));
          }
-         partToUpdate.setNombre(partUpdate.getNombre());
-         partToUpdate.setPrecioUnidad(partUpdate.getPrecioUnidad());
-         partToUpdate.setExistencias(partUpdate.getExistencias());
-         partToUpdate.setMinimoExitencias(partUpdate.getMinimoExistencias());
-         partToUpdate.setEstado(partUpdate.isEstado());
-
+         partToUpdate.setName(partUpdate.getName());
+         partToUpdate.setUnitPrice(partUpdate.getUnitPrice());
+         partToUpdate.setMinimumStock(partUpdate.getMiniumStock());
+         partToUpdate.setState(partUpdate.isState());
          partRepository.save(partToUpdate);
 
          return new ResponsePartDTO(partToUpdate);
     }
     @Override
     public ResponsePartDTO findByName(String name) throws ServiceException{
-        Part findPart = partRepository.findByNombre(name).orElseThrow(
+        Part findPart = partRepository.findByName(name).orElseThrow(
                 ()-> new NotFoundException(String.format("This part with name: %s dont exists!",name)));
         return new ResponsePartDTO(findPart);
     }

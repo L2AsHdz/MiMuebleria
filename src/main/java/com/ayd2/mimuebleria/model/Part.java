@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Table(name = "Pieza")
+@Table(name = "Piece")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter @Setter @Builder
@@ -12,21 +12,18 @@ public class Part {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
-    private Long idPieza;
+    private Long pieceId;
 
     @Column
-    private String nombre;
+    private String name;
 
     @Column
-    private double precioUnidad;
+    private double unitPrice;
 
     @Column
-    private int existencias;
+    private int minimumStock;
 
     @Column
-    private int minimoExitencias;
-
-    @Column
-    private boolean estado;
+    private boolean state;
 
 }
