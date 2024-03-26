@@ -19,7 +19,7 @@ public class UserInfoDetails implements UserDetails {
     public UserInfoDetails(User user) {
         username = user.getUsername();
         password = user.getPassword();
-        rol = user.getRol();
+        rol = user.getRole();
     }
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

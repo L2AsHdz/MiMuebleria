@@ -17,8 +17,8 @@ public class User {
     private Long userId;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "rol", nullable = false)
-    private Rol rol;
+    @Column(name = "role", nullable = false)
+    private Rol role;
 
     @Column(name = "name", nullable = false, length = 45)
     private String name;
@@ -32,7 +32,7 @@ public class User {
     @Column(name = "password", nullable = false, length = 500)
     private String password;
 
-    @Column(name = "active")
-    private Boolean active = true;
+    @Column(name = "status")
+    private Boolean status = true;
 
 }
