@@ -14,7 +14,6 @@ import java.util.Set;
 public class Client {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "nit", nullable = false, length = 15)
     private String nit;
 
