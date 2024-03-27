@@ -1,5 +1,6 @@
 package com.ayd2.mimuebleria.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -28,12 +29,15 @@ public class Piece {
     private Integer minimumStock;
 
     @OneToMany(mappedBy = "piece")
+    @JsonIgnore
     private Set<AssemblyDetail> assemblyDetails = new LinkedHashSet<>();
 
     @OneToMany(mappedBy = "piece")
+    @JsonIgnore
     private Set<FurnitureDetail> furnitureDetails = new LinkedHashSet<>();
 
     @OneToMany(mappedBy = "piece")
+    @JsonIgnore
     private Set<PieceInventory> pieceInventories = new LinkedHashSet<>();
 
 }

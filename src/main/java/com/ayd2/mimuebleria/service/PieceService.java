@@ -1,5 +1,6 @@
 package com.ayd2.mimuebleria.service;
 
+import com.ayd2.mimuebleria.dto.PieceListDto;
 import com.ayd2.mimuebleria.exceptions.NotFoundException;
 import com.ayd2.mimuebleria.model.Piece;
 import com.ayd2.mimuebleria.repository.PieceRepository;
@@ -28,7 +29,7 @@ public class PieceService {
         return repository.save(piece);
     }
 
-    public List<Piece> getAllPiece(){
-        return repository.findAll();
+    public List<PieceListDto> getAllPiece(){
+        return repository.findAllPiece();
     }
 }
