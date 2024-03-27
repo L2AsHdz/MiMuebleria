@@ -1,5 +1,6 @@
 package com.ayd2.mimuebleria.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -22,6 +23,7 @@ public class Furniture {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "assemblyId")
+    @JsonIgnore
     private Assembly assembly;
 
     @Column(name = "assemblyDate", nullable = false)
@@ -37,9 +39,11 @@ public class Furniture {
     private Boolean status;
 
     @OneToMany(mappedBy = "furniture")
+    @JsonIgnore
     private Set<FurnitureDetail> furnitureDetails = new LinkedHashSet<>();
 
     @OneToMany(mappedBy = "furniture")
+    @JsonIgnore
     private Set<InvoiceDetail> invoiceDetails = new LinkedHashSet<>();
 
 }

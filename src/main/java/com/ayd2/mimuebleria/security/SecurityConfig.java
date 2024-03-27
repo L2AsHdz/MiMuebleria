@@ -42,6 +42,7 @@ public class SecurityConfig {
                         request -> request
                                 .requestMatchers("/v1/auth/**").permitAll()
                                 .requestMatchers("/v1/greetings/welcome").permitAll()
+                                .requestMatchers("/furniture/all").permitAll()
                                 .requestMatchers("/**").authenticated()
                                 .anyRequest().authenticated())
                 .sessionManagement(
