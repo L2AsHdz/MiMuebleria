@@ -10,6 +10,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -39,6 +40,24 @@ public class FurnitureService {
     public List<SummaryFurnitureDto> getAllFurniture(){
         return repository.getSummaryFurniture();
     }
+
+    public List<Furniture> getAllByStatusIsFalse(){
+        return repository.findAllByStatusIsFalse();
+    }
+    public String[] checkFurniture(String ids) {
+        String[] lstIds = ids.split(",");
+        for (String id : lstIds) {
+            try {
+                var entity = findFurniture(Long.parseLong(id));
+                entity.setStatus(true);
+                repository.save(entity);
+            } catch (NotFoundException e) {
+
+            }
+        }
+        return lstIds;
+    }
+
 
 
 }

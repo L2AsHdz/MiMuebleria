@@ -1,5 +1,6 @@
 package com.ayd2.mimuebleria.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -29,7 +30,8 @@ public class Assembly {
     @OneToMany(mappedBy = "assembly")
     private Set<AssemblyDetail> assemblyDetails = new LinkedHashSet<>();
 
-    @OneToMany(mappedBy = "assembly")
-    private Set<Furniture> furnitures = new LinkedHashSet<>();
+//    @OneToMany(mappedBy = "assembly")
+//    @JsonIgnore
+//    private Set<Furniture> furnitures = new LinkedHashSet<>();
 
 }

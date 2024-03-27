@@ -21,9 +21,9 @@ public class Furniture {
     @Column(name = "furnitureId", nullable = false)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "assemblyId")
-    @JsonIgnore
+    //@JsonIgnore
     private Assembly assembly;
 
     @Column(name = "assemblyDate", nullable = false)

@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/furniture")
 public class FurnitureController {
@@ -26,4 +28,16 @@ public class FurnitureController {
     public ResponseEntity getFurniture(){
         return ResponseEntity.ok(furnitureService.getAllFurniture());
     }
+
+    @GetMapping("without-check")
+    public ResponseEntity getFurnitureStatusFalse(){
+        return ResponseEntity.ok(furnitureService.getAllByStatusIsFalse());
+    }
+
+    @PutMapping("check-furniture")
+    public ResponseEntity checkFurniture(@RequestBody String furnituresIds){
+        return ResponseEntity.ok(furnitureService.checkFurniture(furnituresIds));
+    }
+
+
 }

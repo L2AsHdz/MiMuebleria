@@ -1,0 +1,1 @@
+ALTER TABLE Piece ADD COLUMN description VARCHAR(50);
