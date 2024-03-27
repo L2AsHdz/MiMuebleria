@@ -24,9 +24,9 @@ public class FurnitureController {
         var furniture = furnitureService.saveFurniture(newFurniture);
         return ResponseEntity.ok(furniture);
     }
-    @GetMapping("all")
+    @GetMapping("summary")
     public ResponseEntity getFurniture(){
-        return ResponseEntity.ok(furnitureService.getAllFurniture());
+        return ResponseEntity.ok(furnitureService.getSummaryFurniture());
     }
 
     @GetMapping("without-check")

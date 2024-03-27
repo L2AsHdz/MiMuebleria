@@ -22,4 +22,6 @@ public interface FurnitureRepository extends CrudRepository<Furniture, Long> {
     List<Furniture> findAllByStatusIsFalse();
 
 
+
+
 }

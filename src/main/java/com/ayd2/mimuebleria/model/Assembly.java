@@ -1,6 +1,8 @@
 package com.ayd2.mimuebleria.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -27,11 +29,12 @@ public class Assembly {
     @Column(name = "description", nullable = false, length = 100)
     private String description;
 
-    @OneToMany(mappedBy = "assembly")
+    @OneToMany(mappedBy = "assembly",  cascade = CascadeType.ALL)
+    @JsonManagedReference(value = "assemblyDetails")
     private Set<AssemblyDetail> assemblyDetails = new LinkedHashSet<>();
 
-//    @OneToMany(mappedBy = "assembly")
-//    @JsonIgnore
-//    private Set<Furniture> furnitures = new LinkedHashSet<>();
+    @OneToMany(mappedBy = "assembly")
+    @JsonBackReference(value = "assembly")
+    private Set<Furniture> furnitures = new LinkedHashSet<>();
 
 }

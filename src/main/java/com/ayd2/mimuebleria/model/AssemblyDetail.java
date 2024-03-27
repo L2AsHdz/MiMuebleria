@@ -1,5 +1,7 @@
 package com.ayd2.mimuebleria.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -22,6 +24,7 @@ public class AssemblyDetail {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "assemblyId", nullable = false)
+    @JsonBackReference(value = "assemblyDetails")
     private Assembly assembly;
 
     @Column(name = "quantity", nullable = false)

@@ -27,7 +27,7 @@ public class FurnitureService {
     }
     @Transactional
     public Furniture updateFurniture(Furniture furniture){
-        return updateFurniture(furniture);
+        return repository.save(furniture);
     }
 
     public Furniture findFurniture(Long id) throws NotFoundException {
@@ -37,7 +37,7 @@ public class FurnitureService {
         }
         return  entity.get();
     }
-    public List<SummaryFurnitureDto> getAllFurniture(){
+    public List<SummaryFurnitureDto> getSummaryFurniture(){
         return repository.getSummaryFurniture();
     }
 
