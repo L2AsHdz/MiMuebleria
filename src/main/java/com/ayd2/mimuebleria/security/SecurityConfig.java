@@ -47,6 +47,7 @@ public class SecurityConfig {
                                 .requestMatchers("/furniture/without-check").permitAll()
                                 .requestMatchers("/piece/all").permitAll()
                                 .requestMatchers("/assembly/create").permitAll()
+                                .requestMatchers("/assembly/template").permitAll()
                                 .requestMatchers("/**").authenticated()
                                 .anyRequest().authenticated())
                 .sessionManagement(

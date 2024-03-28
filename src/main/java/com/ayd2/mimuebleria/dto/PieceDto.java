@@ -11,4 +11,6 @@ import java.io.Serializable;
 public class PieceDto implements Serializable {
     Long id;
     String name;
+    Double unitPrice;
+    Integer minimumStock;
 }

@@ -1,10 +1,13 @@
 package com.ayd2.mimuebleria.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.Hibernate;
 
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -28,8 +31,8 @@ public class Piece {
     @Column(name = "minimumStock", nullable = false)
     private Integer minimumStock;
 
-    @OneToMany(mappedBy = "piece")
-    @JsonIgnore
+    @OneToMany(mappedBy = "piece", cascade = CascadeType.ALL)
+    @JsonManagedReference(value = "assemblyPiece")
     private Set<AssemblyDetail> assemblyDetails = new LinkedHashSet<>();
 
     @OneToMany(mappedBy = "piece")
@@ -40,4 +43,11 @@ public class Piece {
     @JsonIgnore
     private Set<PieceInventory> pieceInventories = new LinkedHashSet<>();
 
+
+    public void initializeData(){
+        Hibernate.initialize(assemblyDetails);
+        for( AssemblyDetail detail : this.assemblyDetails){
+            detail.initialize();
+        }
+    }
 }

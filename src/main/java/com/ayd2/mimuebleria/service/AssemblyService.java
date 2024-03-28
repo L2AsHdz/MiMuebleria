@@ -9,7 +9,12 @@ import com.ayd2.mimuebleria.repository.AssemblyDetailsRepository;
 import com.ayd2.mimuebleria.repository.AssemblyRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.Hibernate;
+import org.slf4j.Logger;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+
 
 @Service
 @RequiredArgsConstructor
@@ -17,6 +22,7 @@ public class AssemblyService {
 
     private final AssemblyRepository repository;
     private final AssemblyDetailsRepository detailsRepository;
+
 
     @Transactional
     public Assembly saveAssembly(AssemblyDto assemblyDto) {
@@ -43,5 +49,23 @@ public class AssemblyService {
     @Transactional
     public Assembly updateAssembly(Assembly assembly){
         return updateAssembly(assembly);
+    }
+
+    @Transactional
+    public List<Assembly> getAllAssembly(){
+        List<Assembly> assemblies = repository.findAll();
+        assemblies.forEach(assembly -> {
+            assembly.getAssemblyDetails().forEach(detail -> {
+                if (detail.getPiece() != null) {
+                    System.out.println("________________Piece name:__________ " + detail.getPiece().getName());
+                    System.out.println("________________Piece ID:__________ " + detail.getPiece().getId()+" --- "+detail.getPiece().getName());
+                }
+            });
+        });
+        return assemblies;
+    }
+
+    public Assembly getFirst(){
+        return repository.findFirstById(10L);
     }
 }

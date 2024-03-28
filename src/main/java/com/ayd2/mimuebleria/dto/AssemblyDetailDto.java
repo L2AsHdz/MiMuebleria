@@ -11,4 +11,5 @@ import java.io.Serializable;
 public class AssemblyDetailDto implements Serializable {
     PieceDto piece;
     Integer quantity;
+
 }

@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.Hibernate;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -36,5 +37,12 @@ public class Assembly {
     @OneToMany(mappedBy = "assembly")
     @JsonBackReference(value = "assembly")
     private Set<Furniture> furnitures = new LinkedHashSet<>();
+    public void initializeData(){
+        Hibernate.initialize(assemblyDetails);
+
+        for( AssemblyDetail detail : this.assemblyDetails){
+            detail.initialize();
+        }
+    }
 
 }
