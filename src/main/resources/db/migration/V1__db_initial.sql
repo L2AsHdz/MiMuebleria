@@ -1,6 +1,3 @@
-DROP SCHEMA IF EXISTS myfurnituredb;
-CREATE SCHEMA IF NOT EXISTS myfurnituredb;
-USE myfurnituredb;
 
 CREATE TABLE IF NOT EXISTS User (
     userId BIGINT NOT NULL AUTO_INCREMENT,

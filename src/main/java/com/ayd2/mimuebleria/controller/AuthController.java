@@ -1,6 +1,7 @@
 package com.ayd2.mimuebleria.controller;
 
-import com.ayd2.mimuebleria.dto.CredentialsDto;
+import com.ayd2.mimuebleria.dto.user.CredentialsDto;
+import com.ayd2.mimuebleria.exceptions.ServiceException;
 import com.ayd2.mimuebleria.service.AuthenticationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +20,7 @@ public class AuthController {
     private final AuthenticationService authenticationService;
 
     @PostMapping("/signin")
-    public ResponseEntity<String> getToken(@RequestBody CredentialsDto credentials) throws IOException {
+    public ResponseEntity<String> getToken(@RequestBody CredentialsDto credentials) throws IOException, ServiceException {
         return ResponseEntity.ok(authenticationService.signin(credentials));
     }
 }

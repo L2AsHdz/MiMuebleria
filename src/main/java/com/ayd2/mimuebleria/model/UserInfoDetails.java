@@ -15,11 +15,13 @@ public class UserInfoDetails implements UserDetails {
     private final String username;
     private final String password;
     private final Rol rol;
+    private final Boolean status;
 
     public UserInfoDetails(User user) {
         username = user.getUsername();
         password = user.getPassword();
         rol = user.getRole();
+        status = user.getStatus() == 1;
     }
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -43,6 +45,6 @@ public class UserInfoDetails implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return status;
     }
 }
