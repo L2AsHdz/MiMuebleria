@@ -40,7 +40,7 @@ public class JwtService {
         Map<String, Object> claims = new HashMap<>();
         claims.put("id", user.getUserId());
         claims.put("user", user.getUsername());
-        claims.put("rol", user.getRol());
+        claims.put("rol", user.getRole());
         return claims;
     }
 

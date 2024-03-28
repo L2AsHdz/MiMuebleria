@@ -1,7 +1,6 @@
 package com.ayd2.mimuebleria.model;
 
-import jakarta.persistence.*;
-import lombok.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
