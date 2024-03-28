@@ -1,22 +1,21 @@
 package com.ayd2.mimuebleria.dto.part;
 
-import com.ayd2.mimuebleria.model.Part;
 import com.ayd2.mimuebleria.model.Piece;
 import lombok.Value;
 
 @Value
 public class ResponsePartDTO {
-    private Long idPieza;
-    private String nombre;
-    private double precioUnidad;
-    private int minimoExistencias;
-    private boolean estado;
+    private Long pieceId;
+    private String name;
+    private double unitPrice;
+    private int miniumStock;
+    private boolean state;
 
     public ResponsePartDTO(Piece partEntity){
-        this.idPieza = partEntity.getId();
-        this.nombre = partEntity.getName();
-        this.precioUnidad = partEntity.getUnitPrice();
-        this.minimoExistencias = partEntity.getMinimumStock();
-        this.estado = partEntity.isState();
+        this.pieceId = partEntity.getId();
+        this.name = partEntity.getName();
+        this.unitPrice = partEntity.getUnitPrice();
+        this.miniumStock = partEntity.getMinimumStock();
+        this.state = partEntity.isState();
     }
 }

@@ -27,15 +27,15 @@ public class PartServiceImpl implements PartService{
     }
     @Override
     public ResponsePartDTO createPart(@RequestBody RequestPartDTO newPart) throws ServiceException {
-        Optional <Piece> newPartEntity = partRepository.findByName(newPart.getNombre());
+        Optional <Piece> newPartEntity = partRepository.findByName(newPart.getName());
         if(newPartEntity.isPresent()){
-            throw new DuplicatedEntityExeption(String.format("This part with name: %s is alredy exists!",newPart.getNombre()));
+            throw new DuplicatedEntityExeption(String.format("This part with name: %s is alredy exists!",newPart.getName()));
         }
         Piece newEntity = new Piece();
-        newEntity.setName(newPart.getNombre());
-        newEntity.setUnitPrice(newPart.getPrecioUnidad());
-        newEntity.setMinimumStock(newPart.getExistencias());
-        newEntity.setState(newPart.isEstado());
+        newEntity.setName(newPart.getName());
+        newEntity.setUnitPrice(newPart.getUnitPrice());
+        newEntity.setMinimumStock(newPart.getMiniumStock());
+        newEntity.setState(newPart.isState());
 
         newEntity = partRepository.save(newEntity);
 
@@ -60,15 +60,15 @@ public class PartServiceImpl implements PartService{
     public ResponsePartDTO updatePart(Long id, RequestPartUpdateDTO partUpdate) throws ServiceException{
         Piece partToUpdate = partRepository.findById(id).orElseThrow(()->
                 new NotFoundException(String.format("Part with id: %s, don't exists",id)));
-         Optional<Piece> duplicatedPart = partRepository.findFirstByNameAndNotId(id,partUpdate.getNombre());
+         Optional<Piece> duplicatedPart = partRepository.findFirstByNameAndNotId(id,partUpdate.getName());
 
          if(duplicatedPart.isPresent()){
              throw new DuplicatedEntityExeption(String.format("Part with name: %s, is already exists",partToUpdate.getName()));
          }
-         partToUpdate.setName(partUpdate.getNombre());
-         partToUpdate.setUnitPrice(partUpdate.getPrecioUnidad());
-         partToUpdate.setMinimumStock(partUpdate.getMinimoExistencias());
-         partToUpdate.setState(partUpdate.isEstado());
+         partToUpdate.setName(partUpdate.getName());
+         partToUpdate.setUnitPrice(partUpdate.getUnitPrice());
+         partToUpdate.setMinimumStock(partUpdate.getMiniumStock());
+         partToUpdate.setState(partUpdate.isState());
 
          partRepository.save(partToUpdate);
 

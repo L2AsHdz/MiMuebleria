@@ -1,6 +1,8 @@
 package com.ayd2.mimuebleria.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
+import lombok.*;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -9,7 +11,10 @@ import java.util.Set;
 @Table(name = "Piece")
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter @Setter @ToString @Builder
+@Getter
+@Setter
+@ToString
+@Builder
 public class Piece {
 
     @Id
