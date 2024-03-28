@@ -7,6 +7,7 @@ import com.ayd2.mimuebleria.exceptions.DuplicatedEntityExeption;
 import com.ayd2.mimuebleria.exceptions.NotFoundException;
 import com.ayd2.mimuebleria.exceptions.ServiceException;
 import com.ayd2.mimuebleria.model.Part;
+import com.ayd2.mimuebleria.model.Piece;
 import com.ayd2.mimuebleria.repository.PartRepository;
 import com.sun.jdi.request.DuplicateRequestException;
 import org.springframework.stereotype.Service;
@@ -26,16 +27,15 @@ public class PartServiceImpl implements PartService{
     }
     @Override
     public ResponsePartDTO createPart(@RequestBody RequestPartDTO newPart) throws ServiceException {
-        Optional <Part> newPartEntity = partRepository.findByNombre(newPart.getNombre());
+        Optional <Piece> newPartEntity = partRepository.findByName(newPart.getNombre());
         if(newPartEntity.isPresent()){
             throw new DuplicatedEntityExeption(String.format("This part with name: %s is alredy exists!",newPart.getNombre()));
         }
-        Part newEntity = new Part();
-        newEntity.setNombre(newPart.getNombre());
-        newEntity.setPrecioUnidad(newPart.getPrecioUnidad());
-        newEntity.setExistencias(newPart.getExistencias());
-        newEntity.setMinimoExitencias(newPart.getMinimoExistencias());
-        newEntity.setEstado(newPart.isEstado());
+        Piece newEntity = new Piece();
+        newEntity.setName(newPart.getNombre());
+        newEntity.setUnitPrice(newPart.getPrecioUnidad());
+        newEntity.setMinimumStock(newPart.getExistencias());
+        newEntity.setState(newPart.isEstado());
 
         newEntity = partRepository.save(newEntity);
 
@@ -49,7 +49,7 @@ public class PartServiceImpl implements PartService{
 
     @Override
     public void deletePart(Long id) throws ServiceException{
-        Optional<Part> partDelete = partRepository.findById(id);
+        Optional<Piece> partDelete = partRepository.findById(id);
         if(partDelete.isEmpty()){
             throw new NotFoundException(String.format("Part with id: %s, don´t exist for delete",id));
         }
@@ -58,18 +58,17 @@ public class PartServiceImpl implements PartService{
 
     @Override
     public ResponsePartDTO updatePart(Long id, RequestPartUpdateDTO partUpdate) throws ServiceException{
-        Part partToUpdate = partRepository.findById(id).orElseThrow(()->
+        Piece partToUpdate = partRepository.findById(id).orElseThrow(()->
                 new NotFoundException(String.format("Part with id: %s, don't exists",id)));
-         Optional<Part> duplicatedPart = partRepository.findFirstByNombreAndNotId(id,partUpdate.getNombre());
+         Optional<Piece> duplicatedPart = partRepository.findFirstByNameAndNotId(id,partUpdate.getNombre());
 
          if(duplicatedPart.isPresent()){
-             throw new DuplicatedEntityExeption(String.format("Part with name: %s, is already exists",partToUpdate.getNombre()));
+             throw new DuplicatedEntityExeption(String.format("Part with name: %s, is already exists",partToUpdate.getName()));
          }
-         partToUpdate.setNombre(partUpdate.getNombre());
-         partToUpdate.setPrecioUnidad(partUpdate.getPrecioUnidad());
-         partToUpdate.setExistencias(partUpdate.getExistencias());
-         partToUpdate.setMinimoExitencias(partUpdate.getMinimoExistencias());
-         partToUpdate.setEstado(partUpdate.isEstado());
+         partToUpdate.setName(partUpdate.getNombre());
+         partToUpdate.setUnitPrice(partUpdate.getPrecioUnidad());
+         partToUpdate.setMinimumStock(partUpdate.getMinimoExistencias());
+         partToUpdate.setState(partUpdate.isEstado());
 
          partRepository.save(partToUpdate);
 
@@ -77,7 +76,7 @@ public class PartServiceImpl implements PartService{
     }
     @Override
     public ResponsePartDTO findByName(String name) throws ServiceException{
-        Part findPart = partRepository.findByNombre(name).orElseThrow(
+        Piece findPart = partRepository.findByName(name).orElseThrow(
                 ()-> new NotFoundException(String.format("This part with name: %s dont exists!",name)));
         return new ResponsePartDTO(findPart);
     }
